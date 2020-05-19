@@ -3,6 +3,8 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 function QuizInfo(props) {
+  // TODO : has to be a better way of doing this
+  // issue with mapping over quiz.questions since request is async (??)
   const [quiz, setQuiz] = useState({});
   const [questions, setQuestions] = useState([]);
 

@@ -11,6 +11,7 @@ import DarkModeToggle from "./components/DarkModeToggle";
 import Home from "./components/Home";
 import QuizList from "./components/QuizList";
 import QuizInfo from "./components/QuizInfo";
+import QuizMaker from "./components/QuizMaker";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
             <Route exact path="/" component={Home} />
             <Route exact path="/quizzes" component={QuizList} />
             <Route exact path="/quizzes/:_id" component={QuizInfo} />
+            <Route exact path="/new_quiz" component={QuizMaker} />
           </Switch>
         </div>
       </Router>

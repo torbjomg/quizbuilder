@@ -22,7 +22,7 @@ function QuizList(props) {
     <div>
       <h2>
         Saved Quizzes
-        <Link to="/quizzes/new" className="btn btn-dark float-right">
+        <Link to="/new_quiz" className="btn btn-dark float-right">
           Create Quiz
         </Link>
       </h2>
