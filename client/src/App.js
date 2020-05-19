@@ -10,6 +10,7 @@ import "./App.scss";
 import DarkModeToggle from "./components/DarkModeToggle";
 import Home from "./components/Home";
 import QuizList from "./components/QuizList";
+import QuizInfo from "./components/QuizInfo";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/quizzes" component={QuizList} />
+            <Route exact path="/quizzes/:_id" component={QuizInfo} />
           </Switch>
         </div>
       </Router>
