@@ -4,7 +4,7 @@ const router = require("./routes/index");
 
 const app = express();
 const PORT = 3001;
-const MONGODB_URI = "mongodb://localhost:27017/quibuilder_db;
+const MONGODB_URI = "mongodb://localhost:27017/quibuilder_db";
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -14,14 +14,13 @@ mongoose.connect(MONGODB_URI, {
   useNewUrlParser: true,
   useFindAndModify: false,
 });
-mongoose.connection.once("open", function() {
+mongoose.connection.once("open", function () {
   console.log("Connected to db");
 });
-mongoose.connection.on("error", function() {
+mongoose.connection.on("error", function (error) {
   console.log("Mongoose connection error: " + error);
 });
 
-app.listen(PORT, function(){
+app.listen(PORT, function () {
   console.log(`Server listening on port ${PORT}.`);
 });
-
