@@ -11,9 +11,8 @@ const quizSchema = new mongoose.Schema({
   },
   questions: {
     type: Array,
-    "default": [],
-  }
+    default: [],
+  },
 });
 
 module.exports = mongoose.model("Quiz", quizSchema);
-
