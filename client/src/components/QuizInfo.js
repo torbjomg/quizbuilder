@@ -41,6 +41,13 @@ function QuizInfo(props) {
     <div>
       <h2>{quiz.title}</h2>
       <small>by: {quiz.author}</small>
+      <button
+        className="btn btn-dark btn-lg btn-block"
+        size="lg"
+        onClick={() => props.history.push(`/edit_quiz/${quiz._id}`)}
+      >
+        Edit quiz
+      </button>
       <hr />
       {questions.map((question, index) => {
         return (

@@ -15,9 +15,7 @@ function QuizList(props) {
     }
     getQuizzes();
   }, []);
-  function clickLink(url) {
-    props.history.push(url);
-  }
+
   return (
     <div>
       <h2>
@@ -35,7 +33,7 @@ function QuizList(props) {
                 <button
                   className="btn btn-dark btn-lg btn-block"
                   size="lg"
-                  onClick={() => clickLink(`/quizzes/${quiz._id}`)}
+                  onClick={() => props.history.push(`/quizzes/${quiz._id}`)}
                 >
                   {quiz.title}
                 </button>

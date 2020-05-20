@@ -12,7 +12,7 @@ import Home from "./components/Home";
 import QuizList from "./components/QuizList";
 import QuizInfo from "./components/QuizInfo";
 import QuizMaker from "./components/QuizMaker";
-
+import EditQuiz from "./components/EditQuiz";
 function App() {
   return (
     <div className="App">
@@ -24,6 +24,7 @@ function App() {
             <Route exact path="/quizzes" component={QuizList} />
             <Route exact path="/quizzes/:_id" component={QuizInfo} />
             <Route exact path="/new_quiz" component={QuizMaker} />
+            <Route exact path="/edit_quiz/:_id" component={EditQuiz} />
           </Switch>
         </div>
       </Router>
