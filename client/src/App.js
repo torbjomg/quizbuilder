@@ -10,9 +10,9 @@ import "./App.scss";
 import DarkModeToggle from "./components/DarkModeToggle";
 import Home from "./components/Home";
 import QuizList from "./components/QuizList";
-import QuizInfo from "./components/QuizInfo";
 import QuizMaker from "./components/QuizMaker";
 import EditQuiz from "./components/EditQuiz";
+import TakeQuiz from "./components/TakeQuiz";
 function App() {
   return (
     <div className="App">
@@ -22,9 +22,9 @@ function App() {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/quizzes" component={QuizList} />
-            <Route exact path="/quizzes/:_id" component={QuizInfo} />
             <Route exact path="/new_quiz" component={QuizMaker} />
             <Route exact path="/edit_quiz/:_id" component={EditQuiz} />
+            <Route exact path="/quiz/:_id" component={TakeQuiz} />
           </Switch>
         </div>
       </Router>

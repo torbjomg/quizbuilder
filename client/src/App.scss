@@ -173,3 +173,12 @@ input[type="checkbox"].dmcheck {
   content: "Click\a0to\a0reveal"; /* non-breaking spaces probably necessary */
   color: #999;
 }
+
+.quiz-icons {
+  margin-right: 15px;
+}
+
+.quiz-icons:hover {
+  cursor: pointer;
+  background-color: rgb(70, 68, 85);
+}
