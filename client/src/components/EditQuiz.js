@@ -134,8 +134,8 @@ function EditQuiz(props) {
                   <tr key={index}>
                     <td>{question.question}</td>
                     <td>
-                      <div tooltip={question.answer} tooltip-position="right">
-                        Click to show
+                      <div className="spoiler" tooltip-position="right">
+                        {question.answer}
                       </div>
                     </td>
                   </tr>
