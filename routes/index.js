@@ -26,7 +26,7 @@ router.post("/quizzes", function (req, res) {
       res.send(quiz);
     })
     .catch(function (err) {
-      res(status(422).send("Quiz add falied"));
+      res(status(422).send("Quiz add failed"));
     });
 });
 

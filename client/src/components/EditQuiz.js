@@ -9,7 +9,8 @@ import {
 import axios from "axios";
 
 function EditQuiz(props) {
-  const [quiz, setQuiz] = useState({});
+  const initialState = { title: "", author: "", questions: [] };
+  const [quiz, setQuiz] = useState(initialState);
   const [questions, setQuestions] = useState([]);
   const [questionText, setQuestionText] = useState({ title: "" });
   const [answerText, setAnswerText] = useState({ title: "" });
@@ -34,8 +35,31 @@ function EditQuiz(props) {
     });
   };
   function addAlternative() {
-    setAlternatives([currentAlternative.title].concat(alternatives));
-    setCurrentAlternative({ title: "" });
+    if (
+      currentAlternative.title &&
+      !alternatives.includes(currentAlternative.title)
+    ) {
+      setAlternatives([currentAlternative.title].concat(alternatives));
+      setCurrentAlternative({ title: "" });
+    }
+  }
+  function saveQuestion() {
+    quiz.questions.push({
+      question: questionText.title,
+      answer: answerText.title,
+      alternatives: alternatives,
+    });
+    async function updateQuiz() {
+      try {
+        await axios.patch(`/api/quizzes/${quiz._id}`, quiz);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    updateQuiz();
+    setQuestionText({ title: "" });
+    setAnswerText({ title: "" });
+    setAlternatives([]);
   }
   useEffect(
     function () {
@@ -105,6 +129,14 @@ function EditQuiz(props) {
               </Button>
             </InputGroup.Append>
           </InputGroup>
+          <Button
+            onClick={saveQuestion}
+            variant="outline-primary"
+            size="lg"
+            block
+          >
+            Save Question
+          </Button>
           <h3>Saved alternatives:</h3>
           <ListGroup>
             {alternatives.length > 0 ? (
