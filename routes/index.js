@@ -30,4 +30,14 @@ router.post("/quizzes", function (req, res) {
     });
 });
 
+router.patch("/quizzes/:id", function (req, res) {
+  Quiz.findByIdAndUpdate(req.params.id, req.body)
+    .then(function () {
+      res.json("Quiz updated");
+    })
+    .catch(function (err) {
+      res.status(422).send("Quiz update failed.");
+    });
+});
+
 module.exports = router;

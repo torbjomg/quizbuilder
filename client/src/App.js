@@ -5,7 +5,7 @@ import {
   NavLink,
   Switch,
 } from "react-router-dom";
-import useDarkMode from "use-dark-mode";
+
 import "./App.scss";
 import DarkModeToggle from "./components/DarkModeToggle";
 import Home from "./components/Home";

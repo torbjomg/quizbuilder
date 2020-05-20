@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
 
 function QuizInfo(props) {
   // TODO : has to be a better way of doing this
@@ -22,7 +21,6 @@ function QuizInfo(props) {
         }
       }
       getQuiz();
-      console.log(quiz);
     },
     [props]
   );

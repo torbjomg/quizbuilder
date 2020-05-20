@@ -1,5 +1,11 @@
 import React, { Fragment, useState, useEffect } from "react";
-import { Button, InputGroup, FormControl } from "react-bootstrap";
+import {
+  Button,
+  InputGroup,
+  FormControl,
+  ListGroup,
+  Table,
+} from "react-bootstrap";
 import axios from "axios";
 
 function EditQuiz(props) {
@@ -28,7 +34,7 @@ function EditQuiz(props) {
     });
   };
   function addAlternative() {
-    setAlternatives(alternatives.concat(currentAlternative.title));
+    setAlternatives([currentAlternative.title].concat(alternatives));
     setCurrentAlternative({ title: "" });
   }
   useEffect(
@@ -45,7 +51,6 @@ function EditQuiz(props) {
         }
       }
       getQuiz();
-      console.log(quiz);
     },
     [props]
   );
@@ -86,7 +91,7 @@ function EditQuiz(props) {
               <InputGroup.Text>Optional Alternatives</InputGroup.Text>
             </InputGroup.Prepend>
             <FormControl
-              autocomplete="off"
+              autoComplete="off"
               placeholder="Enter optional alternatives"
               aria-label="Alternatives"
               aria-describedby="basic-addon2"
@@ -100,15 +105,45 @@ function EditQuiz(props) {
               </Button>
             </InputGroup.Append>
           </InputGroup>
+          <h3>Saved alternatives:</h3>
+          <ListGroup>
+            {alternatives.length > 0 ? (
+              alternatives.map((alternative, index) => {
+                return (
+                  <ListGroup.Item variant="dark" key={index}>
+                    {alternative}
+                  </ListGroup.Item>
+                );
+              })
+            ) : (
+              <h4>No saved alternatives, fill in box above and click "Add"!</h4>
+            )}
+          </ListGroup>
         </div>
+
         <div className="col-md-4">
-          {questions.map((question, index) => {
-            return (
-              <div className="container" key={index}>
-                {question.question} - {question.answer}
-              </div>
-            );
-          })}
+          <h3>Saved questions:</h3>
+          <Table striped bordered hover variant="dark">
+            <thead>
+              <tr>
+                <th>Question</th>
+                <th>Answer</th>
+              </tr>
+              {questions.map((question, index) => {
+                return (
+                  <tr key={index}>
+                    <td>{question.question}</td>
+                    <td>
+                      <div tooltip={question.answer} tooltip-position="right">
+                        Click to show
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })}
+            </thead>
+            <tbody></tbody>
+          </Table>
         </div>
       </div>
     </Fragment>
