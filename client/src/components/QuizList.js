@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { FaEdit, FaTrash } from "react-icons/fa";
 function QuizList(props) {
   const [quizzes, setQuizzes] = useState([]);
+
   useEffect(function () {
     async function getQuizzes() {
       try {
@@ -15,7 +16,19 @@ function QuizList(props) {
     }
     getQuizzes();
   }, []);
-
+  function deleteQuiz(quizId) {
+    async function deleteFromDb() {
+      try {
+        const remainingQuizzes = quizzes.filter((quiz) => quiz._id != quizId);
+        const response = await axios.delete(`api/quizzes/${quizId}`);
+        setQuizzes(remainingQuizzes);
+        console.log(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    deleteFromDb();
+  }
   return (
     <div>
       <h2>
@@ -50,7 +63,7 @@ function QuizList(props) {
                     className="quiz-icons"
                     style={{ hover: "cursor" }}
                     color="red"
-                    onClick={() => props.history.push(`/edit_quiz/${quiz._id}`)}
+                    onClick={() => deleteQuiz(quiz._id)}
                   />
                 </h3>
               </div>

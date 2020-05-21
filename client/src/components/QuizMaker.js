@@ -29,7 +29,7 @@ function QuizMaker(props) {
           author: quizAuthor.title,
         });
         console.log(response.data);
-        props.history.push(`/quizzes/${response.data._id}`);
+        props.history.push(`/edit_quiz/${response.data._id}`);
       } catch (error) {
         console.log(error);
       }

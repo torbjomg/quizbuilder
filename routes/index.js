@@ -40,4 +40,20 @@ router.patch("/quizzes/:id", function (req, res) {
     });
 });
 
+router.delete("/quizzes/:id", function (req, res) {
+  Quiz.findById(req.params.id, function (err, quiz) {
+    if (!quiz) {
+      res.status(404).send("Quiz not found");
+    } else {
+      Quiz.findByIdAndRemove(req.params.id)
+        .then(function () {
+          res.status(200).json("Quiz deleted");
+        })
+        .catch(function (err) {
+          res.status(400).send("Quiz delete failed");
+        });
+    }
+  });
+});
+
 module.exports = router;
