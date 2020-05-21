@@ -35,6 +35,13 @@ function TakeQuiz(props) {
     setQuestionIndex(questionIndex + 1);
     setUserAnswer({ title: "" });
   }
+  function shuffle(a) {
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
   useEffect(
     function () {
       async function getQuiz() {
@@ -67,19 +74,19 @@ function TakeQuiz(props) {
           <InputGroup>
             {currentQuestion.alternatives &&
             currentQuestion.alternatives.length > 0 ? (
-              currentQuestion.alternatives
-                .concat(currentQuestion.answer)
-                .map((alternative, index) => {
-                  return (
-                    <Button
-                      variant="outline-primary"
-                      key={index}
-                      onClick={() => registerAnswer(alternative)}
-                    >
-                      {alternative}
-                    </Button>
-                  );
-                })
+              shuffle(
+                currentQuestion.alternatives.concat(currentQuestion.answer)
+              ).map((alternative, index) => {
+                return (
+                  <Button
+                    variant="outline-primary"
+                    key={index}
+                    onClick={() => registerAnswer(alternative)}
+                  >
+                    {alternative}
+                  </Button>
+                );
+              })
             ) : (
               <Fragment>
                 <InputGroup.Prepend>
