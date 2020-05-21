@@ -11,7 +11,6 @@ import axios from "axios";
 function EditQuiz(props) {
   const initialState = { title: "", author: "", questions: [] };
   const [quiz, setQuiz] = useState(initialState);
-  const [questions, setQuestions] = useState([]);
   const [questionText, setQuestionText] = useState({ title: "" });
   const [answerText, setAnswerText] = useState({ title: "" });
   const [currentAlternative, setCurrentAlternative] = useState({ title: "" });
@@ -69,7 +68,6 @@ function EditQuiz(props) {
             `/api/quizzes/${props.match.params._id}`
           );
           setQuiz(response.data);
-          setQuestions(response.data.questions);
         } catch (error) {
           console.log("error", error);
         }
@@ -161,7 +159,7 @@ function EditQuiz(props) {
                 <th>Question</th>
                 <th>Answer</th>
               </tr>
-              {questions.map((question, index) => {
+              {quiz.questions.map((question, index) => {
                 return (
                   <tr key={index}>
                     <td>{question.question}</td>
