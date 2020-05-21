@@ -7,7 +7,7 @@ import {
   Table,
 } from "react-bootstrap";
 import axios from "axios";
-
+import { FaEdit, FaTrash } from "react-icons/fa";
 function EditQuiz(props) {
   const initialState = { title: "", author: "", questions: [] };
   const [quiz, setQuiz] = useState(initialState);
@@ -42,7 +42,36 @@ function EditQuiz(props) {
       setCurrentAlternative({ title: "" });
     }
   }
+  function deleteQuestion(q) {
+    const remainingQuestions = quiz.questions.filter(
+      (question) => question.question !== q
+    );
+    const patchedQuiz = {
+      title: quiz.title,
+      author: quiz.author,
+      questions: remainingQuestions,
+    };
+    setQuiz(patchedQuiz);
+    async function updateQuiz() {
+      try {
+        await axios.patch(`/api/quizzes/${quiz._id}`, patchedQuiz);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    updateQuiz();
+  }
   function saveQuestion() {
+    const exists = quiz.questions.filter(
+      (question) => question.question === questionText.title
+    );
+    if (
+      !exists === null ||
+      questionText.title === "" ||
+      answerText.title === ""
+    ) {
+      return;
+    }
     quiz.questions.push({
       question: questionText.title,
       answer: answerText.title,
@@ -60,6 +89,7 @@ function EditQuiz(props) {
     setAnswerText({ title: "" });
     setAlternatives([]);
   }
+
   useEffect(
     function () {
       async function getQuiz() {
@@ -79,7 +109,7 @@ function EditQuiz(props) {
   return (
     <Fragment>
       <div className="row">
-        <div className="col-md-8">
+        <div className="col-md-6">
           <h2>{quiz.title}</h2>
           <small>{quiz.author}</small>
           <hr />
@@ -151,14 +181,17 @@ function EditQuiz(props) {
           </ListGroup>
         </div>
 
-        <div className="col-md-4">
+        <div className="col-md-6">
           <h3>Saved questions:</h3>
           <Table striped bordered hover variant="dark">
             <thead>
               <tr>
-                <th>Question</th>
-                <th>Answer</th>
+                <th width="40%">Question</th>
+                <th width="40%">Answer</th>
+                <th>Options</th>
               </tr>
+            </thead>
+            <tbody>
               {quiz.questions.map((question, index) => {
                 return (
                   <tr key={index}>
@@ -168,11 +201,18 @@ function EditQuiz(props) {
                         {question.answer}
                       </div>
                     </td>
+                    <td>
+                      <FaEdit className="question-icon" />
+                      <FaTrash
+                        className="question-icon"
+                        color="red"
+                        onClick={() => deleteQuestion(question.question)}
+                      />
+                    </td>
                   </tr>
                 );
               })}
-            </thead>
-            <tbody></tbody>
+            </tbody>
           </Table>
         </div>
       </div>

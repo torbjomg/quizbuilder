@@ -174,11 +174,20 @@ input[type="checkbox"].dmcheck {
   color: #999;
 }
 
-.quiz-icons {
+.quiz-icon {
   margin-right: 15px;
 }
 
-.quiz-icons:hover {
+.quiz-icon:hover {
+  cursor: pointer;
+  background-color: rgb(70, 68, 85);
+}
+
+.question-icon {
+  margin-left: 5px;
+}
+
+.question-icon:hover {
   cursor: pointer;
   background-color: rgb(70, 68, 85);
 }

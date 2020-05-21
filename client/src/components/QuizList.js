@@ -55,13 +55,12 @@ function QuizList(props) {
               <div className="col-md-4">
                 <h3>
                   <FaEdit
-                    className="quiz-icons"
+                    className="quiz-icon"
                     onClick={() => props.history.push(`/edit_quiz/${quiz._id}`)}
                   />
 
                   <FaTrash
-                    className="quiz-icons"
-                    style={{ hover: "cursor" }}
+                    className="quiz-icon"
                     color="red"
                     onClick={() => deleteQuiz(quiz._id)}
                   />
