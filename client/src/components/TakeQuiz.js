@@ -24,16 +24,15 @@ function TakeQuiz(props) {
     });
   };
   function registerAnswer(answer) {
-    console.log("answerered " + answer);
-    if (answer === currentQuestion.answer) {
+    if (answer.toString() === currentQuestion.answer.toString()) {
       setPoints(points + 1);
     }
     if (questionIndex >= quiz.questions.length - 1) {
       setQuizFinished(true);
       return;
     }
+    setCurrentQuestion(quiz.questions[questionIndex + 1]);
     setQuestionIndex(questionIndex + 1);
-    setCurrentQuestion(quiz.questions[questionIndex]);
     setUserAnswer({ title: "" });
   }
   useEffect(
@@ -66,7 +65,8 @@ function TakeQuiz(props) {
           </h2>
           <h3>{currentQuestion.question}</h3>
           <InputGroup>
-            {currentQuestion.alternatives ? (
+            {currentQuestion.alternatives &&
+            currentQuestion.alternatives.length > 0 ? (
               currentQuestion.alternatives
                 .concat(currentQuestion.answer)
                 .map((alternative, index) => {
