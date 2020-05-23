@@ -57,11 +57,16 @@ function NavigationBar() {
             </NavLink>
           </li>
         </ul>
+
         <DarkModeToggle />
         {!isAuthenticated && (
           <button onClick={() => loginWithRedirect({})}>Log in</button>
         )}
-        {isAuthenticated && <button onClick={() => logout()}>Log out</button>}
+        {isAuthenticated && (
+          <span>
+            <button onClick={() => logout()}>Log out</button>
+          </span>
+        )}
       </div>
     </nav>
   );

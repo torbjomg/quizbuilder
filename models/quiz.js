@@ -13,6 +13,10 @@ const quizSchema = new mongoose.Schema({
     type: Array,
     default: [],
   },
+  public: {
+    type: Boolean,
+    default: true,
+  },
 });
 
 module.exports = mongoose.model("Quiz", quizSchema);

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { FaEdit, FaTrash } from "react-icons/fa";
+import { MdPublic } from "react-icons/md";
 function QuizList(props) {
   const [quizzes, setQuizzes] = useState([]);
 
@@ -19,7 +20,7 @@ function QuizList(props) {
   function deleteQuiz(quizId) {
     async function deleteFromDb() {
       try {
-        const remainingQuizzes = quizzes.filter((quiz) => quiz._id != quizId);
+        const remainingQuizzes = quizzes.filter((quiz) => quiz._id !== quizId);
         const response = await axios.delete(`api/quizzes/${quizId}`);
         setQuizzes(remainingQuizzes);
         console.log(response.data);
@@ -28,6 +29,21 @@ function QuizList(props) {
       }
     }
     deleteFromDb();
+  }
+  function togglePublic(quizId) {
+    async function toggleQuizPublic() {
+      try {
+        let quiz = quizzes.filter((quiz) => quiz._id === quizId)[0];
+        quiz.public = !quiz.public;
+        await axios.patch(`api/quizzes/${quizId}`, quiz);
+        const patchedQuizzes = quizzes.slice();
+        setQuizzes(patchedQuizzes);
+        console.log(`Set to ${quiz.public ? "public" : "private"}`);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    toggleQuizPublic();
   }
   return (
     <div>
@@ -58,12 +74,16 @@ function QuizList(props) {
                     className="quiz-icon"
                     onClick={() => props.history.push(`/edit_quiz/${quiz._id}`)}
                   />
-
                   <FaTrash
                     className="quiz-icon"
                     color="red"
                     onClick={() => deleteQuiz(quiz._id)}
                   />
+                  <MdPublic
+                    className="quiz-icon"
+                    color={quiz.public === true ? "green" : "grey"}
+                    onClick={() => togglePublic(quiz._id)}
+                  ></MdPublic>
                 </h3>
               </div>
               <div className="row">

@@ -27,6 +27,7 @@ function QuizMaker(props) {
         const response = await axios.post("/api/quizzes", {
           title: quizTitle.title,
           author: quizAuthor.title,
+          public: true,
         });
         console.log(response.data);
         props.history.push(`/edit_quiz/${response.data._id}`);

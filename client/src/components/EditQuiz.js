@@ -112,6 +112,7 @@ function EditQuiz(props) {
         <div className="col-md-6">
           <h2>{quiz.title}</h2>
           <small>{quiz.author}</small>
+          <p>{quiz.public ? "PUBLIC" : "PRIVATE"}</p>
           <hr />
           <InputGroup>
             <InputGroup.Prepend>
