@@ -13,6 +13,9 @@ import QuizList from "./components/QuizList";
 import QuizMaker from "./components/QuizMaker";
 import EditQuiz from "./components/EditQuiz";
 import TakeQuiz from "./components/TakeQuiz";
+import PrivateRoute from "./components/PrivateRoute";
+import { useAuth0 } from "./react-auth0-spa";
+
 function App() {
   return (
     <div className="App">
@@ -21,10 +24,10 @@ function App() {
         <div className="container">
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route exact path="/quizzes" component={QuizList} />
-            <Route exact path="/new_quiz" component={QuizMaker} />
-            <Route exact path="/edit_quiz/:_id" component={EditQuiz} />
-            <Route exact path="/quiz/:_id" component={TakeQuiz} />
+            <PrivateRoute exact path="/quizzes" component={QuizList} />
+            <PrivateRoute exact path="/new_quiz" component={QuizMaker} />
+            <PrivateRoute exact path="/edit_quiz/:_id" component={EditQuiz} />
+            <PrivateRoute exact path="/quiz/:_id" component={TakeQuiz} />
           </Switch>
         </div>
       </Router>
@@ -33,6 +36,7 @@ function App() {
 }
 
 function NavigationBar() {
+  const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
       <div className="container">
@@ -54,6 +58,10 @@ function NavigationBar() {
           </li>
         </ul>
         <DarkModeToggle />
+        {!isAuthenticated && (
+          <button onClick={() => loginWithRedirect({})}>Log in</button>
+        )}
+        {isAuthenticated && <button onClick={() => logout()}>Log out</button>}
       </div>
     </nav>
   );
