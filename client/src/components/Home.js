@@ -10,7 +10,6 @@ function Home() {
     <>
       <p>Hi, {user.nickname}!</p>
       <p>{user.email}</p>
-      <code>{JSON.stringify(user, null, 2)}</code>
     </>
   );
 }

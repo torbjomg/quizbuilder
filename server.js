@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const router = require("./routes/index");
+const path = require("path");
 require("dotenv").config();
 
 const app = express();
@@ -12,6 +13,7 @@ const MONGODB_URI =
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use("/api", router);
+app.use(express.static(path.join(__dirname, "client", "build")));
 
 mongoose.connect(
   MONGODB_URI,
@@ -29,6 +31,10 @@ mongoose.connection.once("open", function () {
 });
 mongoose.connection.on("error", function (error) {
   console.log("Mongoose connection error: " + error);
+});
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client", "build", "index.html"));
 });
 
 app.listen(PORT, function () {
