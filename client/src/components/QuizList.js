@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { FaEdit, FaTrash, FaRegEye, FaRegEyeSlash } from "react-icons/fa";
-import { MdPublic, MdYoutubeSearchedFor } from "react-icons/md";
+import { FaEdit, FaTrash } from "react-icons/fa";
+import { MdPublic } from "react-icons/md";
 import { useAuth0 } from "../react-auth0-spa";
 function QuizList(props) {
   const { user } = useAuth0();

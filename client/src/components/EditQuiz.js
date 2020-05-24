@@ -8,7 +8,6 @@ import {
 } from "react-bootstrap";
 import axios from "axios";
 import { FaEdit, FaTrash, FaRegEye, FaRegEyeSlash } from "react-icons/fa";
-import { MdPublic } from "react-icons/md";
 
 function EditQuiz(props) {
   const initialState = { title: "", author: "", questions: [] };
