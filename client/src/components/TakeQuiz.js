@@ -1,11 +1,5 @@
 import React, { Fragment, useState, useEffect } from "react";
-import {
-  Button,
-  InputGroup,
-  FormControl,
-  ListGroup,
-  Table,
-} from "react-bootstrap";
+import { Button, InputGroup, FormControl } from "react-bootstrap";
 import axios from "axios";
 
 function TakeQuiz(props) {
