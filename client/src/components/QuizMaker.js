@@ -1,10 +1,12 @@
 import React, { useState, Fragment } from "react";
 import { Button, InputGroup, FormControl } from "react-bootstrap";
 import axios from "axios";
+import { useAuth0 } from "../react-auth0-spa";
 
 function QuizMaker(props) {
   const [quizTitle, setQuizTitle] = useState({ title: "" });
-  const [quizAuthor, setQuizAuthor] = useState({ title: "" });
+
+  const { user } = useAuth0();
 
   const onChangeQuizTitle = (e) => {
     setQuizTitle({
@@ -12,22 +14,16 @@ function QuizMaker(props) {
       [e.target.name]: e.target.value,
     });
   };
-  const onChangeQuizAuthor = (e) => {
-    setQuizAuthor({
-      ...quizAuthor,
-      [e.target.name]: e.target.value,
-    });
-  };
   function saveQuiz() {
-    if (!quizTitle.title || !quizAuthor.title) {
+    if (!quizTitle.title || !user) {
       return;
     }
     async function saveToDb() {
       try {
         const response = await axios.post("/api/quizzes", {
           title: quizTitle.title,
-          author: quizAuthor.title,
-          public: true,
+          author: user.email,
+          public: false,
         });
         console.log(response.data);
         props.history.push(`/edit_quiz/${response.data._id}`);
@@ -48,19 +44,6 @@ function QuizMaker(props) {
           aria-label="Enter the quiz title here"
           value={quizTitle.title}
           onChange={onChangeQuizTitle}
-          name="title"
-        />
-      </InputGroup>
-      <hr />
-      <InputGroup>
-        <InputGroup.Prepend>
-          <InputGroup.Text>Author</InputGroup.Text>
-        </InputGroup.Prepend>
-        <FormControl
-          autoComplete="off"
-          aria-label="Enter the quiz author here"
-          value={quizAuthor.title}
-          onChange={onChangeQuizAuthor}
           name="title"
         />
       </InputGroup>

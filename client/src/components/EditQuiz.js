@@ -7,7 +7,9 @@ import {
   Table,
 } from "react-bootstrap";
 import axios from "axios";
-import { FaEdit, FaTrash } from "react-icons/fa";
+import { FaEdit, FaTrash, FaRegEye, FaRegEyeSlash } from "react-icons/fa";
+import { MdPublic } from "react-icons/md";
+
 function EditQuiz(props) {
   const initialState = { title: "", author: "", questions: [] };
   const [quiz, setQuiz] = useState(initialState);
@@ -90,6 +92,30 @@ function EditQuiz(props) {
     setAlternatives([]);
   }
 
+  function togglePublic() {
+    async function toggleQuizPublic() {
+      try {
+        let patchedQuiz = {
+          title: quiz.title,
+          author: quiz.author,
+          _id: quiz._id,
+          public: !quiz.public,
+          questions: quiz.questions,
+        };
+        console.log(quiz._id);
+        await axios.patch(
+          `http://localhost:3000/api/quizzes/${quiz._id}`,
+          patchedQuiz
+        );
+        setQuiz(patchedQuiz);
+        console.log(`Set to ${quiz.public ? "public" : "private"}`);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    toggleQuizPublic();
+  }
+
   useEffect(
     function () {
       async function getQuiz() {
@@ -110,9 +136,24 @@ function EditQuiz(props) {
     <Fragment>
       <div className="row">
         <div className="col-md-6">
-          <h2>{quiz.title}</h2>
+          <h2>
+            {quiz.title}
+            <span style={{ float: "right" }}>
+              {quiz.public ? (
+                <Button onClick={togglePublic}>
+                  Public
+                  <FaRegEye />
+                </Button>
+              ) : (
+                <Button onClick={togglePublic}>
+                  Private
+                  <FaRegEyeSlash />
+                </Button>
+              )}
+            </span>
+          </h2>
           <small>{quiz.author}</small>
-          <p>{quiz.public ? "PUBLIC" : "PRIVATE"}</p>
+          <p></p>
           <hr />
           <InputGroup>
             <InputGroup.Prepend>

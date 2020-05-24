@@ -8,6 +8,19 @@ router.get("/quizzes", function (req, res) {
   });
 });
 
+router.post("/my_quizzes", function (req, res) {
+  const userEmail = req.body.email;
+  Quiz.find({ author: userEmail }, function (err, quizzes) {
+    res.json(quizzes);
+  });
+});
+
+router.get("/public_quizzes", function (req, res) {
+  Quiz.find({ public: true }, function (err, quizzes) {
+    res.json(quizzes);
+  });
+});
+
 router.get("/quizzes/:id", function (req, res) {
   Quiz.findById(req.params.id, function (err, quiz) {
     if (!quiz) {

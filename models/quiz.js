@@ -15,7 +15,7 @@ const quizSchema = new mongoose.Schema({
   },
   public: {
     type: Boolean,
-    default: true,
+    default: false,
   },
 });
 
