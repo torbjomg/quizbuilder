@@ -6,7 +6,6 @@ import * as serviceWorker from "./serviceWorker";
 import { Auth0Provider } from "./react-auth0-spa";
 import history from "./utils/history";
 import "bootstrap/dist/css/bootstrap.css";
-require("dotenv").config();
 
 const onRedirectCallback = (appState) => {
   history.push(
@@ -18,7 +17,7 @@ const onRedirectCallback = (appState) => {
 
 ReactDOM.render(
   <Auth0Provider
-    domain={process.env.AUTH0_DOMAIN || "dummy"}
+    domain={process.env.AUTH0_DOMAIN}
     client_id={process.env.AUTH0_CLIENT_ID}
     redirect_uri={window.location.origin}
     onRedirectCallback={onRedirectCallback}
