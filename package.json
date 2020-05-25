@@ -4,9 +4,9 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "concurrently \"nodemon server.js\" \"cd client && BROWSER=chromium yarn start\"",
-    "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "concurrently \"nodemon server.js\" \"cd client && npm install --only=dev && npm install && npm run build\"",
+    "dev": "concurrently \"nodemon server.js\" \"cd client && BROWSER=chromium yarn start\""
   },
   "repository": {
     "type": "git",
