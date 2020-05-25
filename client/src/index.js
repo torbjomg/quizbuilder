@@ -18,8 +18,8 @@ const onRedirectCallback = (appState) => {
 
 ReactDOM.render(
   <Auth0Provider
-    domain="dev-xz5gafen.eu.auth0.com"
-    client_id="mLBFSmjdyQduVF2YDxMz132usZPpn6d2"
+    domain={process.env.AUTH0_DOMAIN}
+    client_id={process.env.AUTH0_CLIENT_ID}
     redirect_uri={window.location.origin}
     onRedirectCallback={onRedirectCallback}
   >
